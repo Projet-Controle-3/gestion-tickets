@@ -27,6 +27,46 @@ Route::middleware(LocalizationMiddleware::class)->group(function () {
     // Déconnexion
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::middleware('auth')->group(function () {
+
+        // Partie Liste des Ticket (Zouhir)
+        Route::get('/tickets', function () {
+            return view('tickets.index');
+        })->name('tickets.index');
+
+
+
+        // Partie Creation des Ticket (Fahd)
+        Route::get('/tickets/create', function () {
+            return view('tickets.create');
+        })->name('tickets.create');
+
+
+
+        // Partie Details d'un Ticket (Fahd)
+
+
+
+
+        // Partie Reponse aux Tickets (Aymane)
+        Route::get('/tickets/response', function () {
+            return view('tickets.response');
+        })->name('tickets.response');
+
+
+
+        // Partie Mes Tickets (Aymane)
+        Route::get('/tickets/my-tickets', function () {
+            return view('tickets.my-tickets');
+        })->name('tickets.my-tickets');
+
+
+
+        // Gestion des Utilisateurs (ilyass)
+        Route::get('/users', function () {
+            return view('users.index');
+        })->name('users.index');
+    });
 });
 
 

@@ -29,6 +29,6 @@ class UtilisateurController extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect()->route('login')->with('succes', 'Inscription réussie');
+        return redirect()->route('register')->with('succes', 'Inscription réussie');
     }
 }

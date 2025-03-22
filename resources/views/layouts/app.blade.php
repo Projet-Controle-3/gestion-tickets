@@ -52,9 +52,18 @@
 
                                     <span class="sr-only">Open user menu</span>
 
-                                    <img class="w-8 h-8 rounded-full"
-                                        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                                        alt="user photo">
+                                    <!-- Image de profil en fonction du rôle -->
+                                    @if(auth()->user()->role === 'admin')
+                                        <img class="w-10 h-10 rounded-full" src="{{ asset('images/admin.png') }}" alt="Admin">
+
+                                    @elseif(auth()->user()->role === 'support')
+                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/support.avif') }}"
+                                            alt="Support">
+
+                                    @else
+                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/utilisateur.webp') }}"
+                                            alt="Utilisateur">
+                                    @endif
                                 </button>
                             </div>
                             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600"
