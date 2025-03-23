@@ -43,7 +43,7 @@
                 </div>
 
                 <!-- Rôle -->
-                <div class="mb-6">
+                {{-- <div class="mb-6">
                     <label for="role" class="block text-sm font-medium text-black">Rôle</label>
                     <div class="relative">
                         <select name="role" id="role"
@@ -56,7 +56,7 @@
 
                         </select>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Bouton d'inscription -->
                 <div>
