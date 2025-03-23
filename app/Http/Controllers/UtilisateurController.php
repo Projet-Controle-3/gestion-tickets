@@ -19,14 +19,14 @@ class UtilisateurController extends Controller
             'nom' => 'required|string|max:255',
             'email' => 'required|email|unique:utilisateurs',
             'password' => 'required|min:6',
-            'role' => 'required|in:admin,support,utilisateur',
+            // 'role' => 'required|in:admin,support,utilisateur',
         ]);
 
         Utilisateur::create([
             'nom' => $request->nom,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            // 'role' => $request->role,
         ]);
 
         return redirect()->route('register')->with('succes', 'Inscription réussie');
