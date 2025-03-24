@@ -6,6 +6,8 @@ use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+
+
 class UtilisateurController extends Controller
 {
     public function showRegisterForm()
@@ -31,4 +33,47 @@ class UtilisateurController extends Controller
 
         return redirect()->route('register')->with('succes', 'Inscription réussie');
     }
+// afficher les utilisateurs dans le tableau
+    function index(){
+        $users = Utilisateur::all(); // Utilisez le même nom de variable
+        return view('users.index', compact('users'));
+    }
+
+//supprimer
+    public function delete($id)
+    {
+        $users = Utilisateur::findOrFail($id);
+        $users->delete();
+        return redirect()->route('users.index');
+    }
+
+    public function edit($id)
+    {
+        $user = Utilisateur::findOrFail($id);
+        return view('users.edit', compact('user'));
+    }
+    public function update(Request $request, $id)
+    {
+    // Valider les données du formulaire
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'role' => 'required|in:admin,support,utilisateur', // Valider le rôle
+        ]);
+
+    // Trouver l'utilisateur par son ID
+    $users = Utilisateur::find($id);
+
+    // Mettre à jour les champs
+    $users->update([
+        'nom' => $request->nom,
+        'email' => $request->email,
+        'role' => $request->role
+    ]);
+
+    return redirect()->route('users.index');
+}
+
+
+
 }
