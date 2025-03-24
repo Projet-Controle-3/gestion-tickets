@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Middleware\LocalizationMiddleware;
 use Illuminate\Support\Facades\Request;
@@ -37,9 +38,7 @@ Route::middleware(LocalizationMiddleware::class)->group(function () {
 
 
         // Partie Creation des Ticket (Fahd)
-        Route::get('/tickets/create', function () {
-            return view('tickets.create');
-        })->name('tickets.create');
+        Route::resource('tickets', TicketController::class);
 
 
 
