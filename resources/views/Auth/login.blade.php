@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <style>
+        .min-h-screen {
+            min-height: 83vh;
+        }
+    </style>
+
     <div class="flex items-center justify-center min-h-screen font-mono dark:bg-gray-900">
         <div class="w-full max-w-md p-8 rounded-lg shadow-md bg-slate-100">
             <h2 class="mb-6 text-2xl font-bold text-center text-black">Connexion</h2>

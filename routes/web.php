@@ -64,16 +64,15 @@ Route::middleware(LocalizationMiddleware::class)->group(function () {
         // Gestion des Utilisateurs (ilyass)
         //route pour afficher la listes des utilisateurs
         Route::get('/users', [UtilisateurController::class, 'index'])->name('users.index');
-       // Route pour modifier le role
+        // Route pour modifier le role
 
-       Route::get('/users/{id}/edit', [UtilisateurController::class, 'edit'])->name('users.edit');
+        Route::get('/users/{id}/edit', [UtilisateurController::class, 'edit'])->name('users.edit');
 
-       Route::put('/users/{id}', [UtilisateurController::class, 'update'])->name('users.update');
+        Route::put('/users/{id}', [UtilisateurController::class, 'update'])->name('users.update');
 
         //route pour suprrimer
         Route::get('/delete/{id}', [UtilisateurController::class, 'delete']);
     });
-
 });
 
 
