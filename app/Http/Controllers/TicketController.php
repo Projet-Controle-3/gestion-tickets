@@ -28,7 +28,6 @@ class TicketController extends Controller
         $request->validate([
             'sujet' => 'required|string|max:255',
             'description' => 'required|string',
-            'statut' => 'required|in:en_cours,fermés,en_attente',
             'category_id' => 'required|exists:categories,id',
         ]);
 
@@ -36,7 +35,6 @@ class TicketController extends Controller
             'utilisateur_id' => Auth::user()->id,
             'sujet' => $request->input('sujet'),
             'description' => $request->description,
-            'statut' => $request->statut,
             'category_id' => $request->category_id,
         ]);
 
@@ -60,6 +58,6 @@ class TicketController extends Controller
 
     public function destroy(string $id)
     {
-    //
+        //
     }
 }

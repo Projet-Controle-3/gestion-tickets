@@ -76,6 +76,19 @@
                                     <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                                         {{ auth()->user()->email }}
                                     </p>
+                                    <p class="flex items-center gap-1 text-sm truncate font-extralight text-lime-300 dark:text-gray-500"
+                                        role="none">
+
+                                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                            fill="currentColor" class="size-6">
+                                            <path fill-rule="evenodd"
+                                                d="M11.097 1.515a.75.75 0 0 1 .589.882L10.666 7.5h4.47l1.079-5.397a.75.75 0 1 1 1.47.294L16.665 7.5h3.585a.75.75 0 0 1 0 1.5h-3.885l-1.2 6h3.585a.75.75 0 0 1 0 1.5h-3.885l-1.08 5.397a.75.75 0 1 1-1.47-.294l1.02-5.103h-4.47l-1.08 5.397a.75.75 0 1 1-1.47-.294l1.02-5.103H3.75a.75.75 0 0 1 0-1.5h3.885l1.2-6H5.25a.75.75 0 0 1 0-1.5h3.885l1.08-5.397a.75.75 0 0 1 .882-.588ZM10.365 9l-1.2 6h4.47l1.2-6h-4.47Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+
+
+                                        {{ auth()->user()->role }}
+                                    </p>
                                 </div>
 
                                 <ul class="py-1" role="none">
