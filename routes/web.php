@@ -35,6 +35,9 @@ Route::middleware(LocalizationMiddleware::class)->group(function () {
             return view('tickets.index');
         })->name('tickets.index');
 
+        Route::resource('tickets', TicketController::class);
+
+
 
 
         // Partie Creation des Ticket (Fahd)

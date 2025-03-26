@@ -13,7 +13,8 @@ class TicketController extends Controller
 {
     public function index()
     {
-        //
+        $tickets = Ticket::with('category')->get();
+        return view('tickets.index', compact('tickets'));
     }
 
     public function create()
@@ -48,16 +49,36 @@ class TicketController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $ticket = Ticket::findOrFail($id);
+        $categories = Categorie::all();
+        return view('tickets.edit', compact('ticket', 'categories'));
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'sujet' => 'required|string|max:255',
+            'description' => 'required|string',
+            'statut' => 'required|in:en_cours,fermés,en_attente',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $ticket = Ticket::findOrFail($id);
+        $ticket->update([
+            'sujet' => $request->sujet,
+            'description' => $request->description,
+            'statut' => $request->statut,
+            'category_id' => $request->category_id,
+        ]);
+
+        return redirect()->route('tickets.index')->with('success', 'Ticket mis à jour avec succès.');
     }
 
     public function destroy(string $id)
     {
-        //
+        $ticket = Ticket::findOrFail($id);
+        $ticket->delete();
+
+        return redirect()->route('tickets.index')->with('success', 'Ticket supprimé avec succès.');
     }
 }
