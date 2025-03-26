@@ -21,14 +21,12 @@
                 <td>{{$user->email}} </td>
                 <td>{{$user->role}}</td>
                 <td class="px-4 py-3 space-x-2 text-center">
-<button type="submit"><a href="{{ route('users.edit', $user->id) }}">Modifier</a>
-
-<!-- <select name="role" onchange="this.form.submit()">
-        <option value="utilisateur" {{ $user->role === 'utilisateur' ? 'selected' : '' }}>Utilisateur</option>
-        <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
-        <option value="support" {{ $user->role === 'support' ? 'selected' : '' }}>Support</option>
-    </select>--></button>
-    <button type="submit"><a href="http://127.0.0.1:8000/delete/{{$user->id}}">supprimer</a></button>
+<button type="submit"><a href="{{ route('users.edit', $user->id) }}">Modifier</a></button>
+    <form action="{{ route('users.delete', $user->id) }}" method="POST" >
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+    </form>
 
 </td>
 
