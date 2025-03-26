@@ -57,11 +57,10 @@
                                         <img class="w-10 h-10 rounded-full" src="{{ asset('images/admin.png') }}" alt="Admin">
 
                                     @elseif(auth()->user()->role === 'support')
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/support.avif') }}"
-                                            alt="Support">
+                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/support.png') }}" alt="Support">
 
                                     @else
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/utilisateur.webp') }}"
+                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/User.png') }}"
                                             alt="Utilisateur">
                                     @endif
                                 </button>

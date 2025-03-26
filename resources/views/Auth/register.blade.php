@@ -12,6 +12,20 @@
         <div class="w-full max-w-md p-8 rounded-lg shadow-md bg-slate-100 scrollable-form">
             <h2 class="mb-6 text-2xl font-black text-center text-black">Inscription</h2>
 
+            <!-- Notification de succès -->
+            @if(session('success'))
+                <div class="p-4 mb-4 text-green-600 bg-green-500 border-l-4 border-green-900 rounded-md">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span>{{ session('success') }}</span>
+                    </div>
+                </div>
+            @endif
+
             <!-- Formulaire d'inscription -->
             <form method="POST" action="{{ route('register.submit') }}">
                 @csrf

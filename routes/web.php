@@ -71,7 +71,7 @@ Route::middleware(LocalizationMiddleware::class)->group(function () {
         Route::put('/users/{id}', [UtilisateurController::class, 'update'])->name('users.update');
 
         //route pour suprrimer
-        Route::get('/delete/{id}', [UtilisateurController::class, 'delete']);
+        Route::delete('/users/{id}/delete', [UtilisateurController::class, 'delete'])->name('users.delete');
     });
 });
 
