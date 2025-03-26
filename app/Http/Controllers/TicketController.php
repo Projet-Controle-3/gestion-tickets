@@ -30,13 +30,20 @@ class TicketController extends Controller
             'sujet' => 'required|string|max:255',
             'description' => 'required|string',
             'category_id' => 'required|exists:categories,id',
+            'piece_jointe' => 'nullable|file|max:5120',
         ]);
+         // Verification de fichier d'input piece jointes
+        if ($request->hasFile('piece_jointe')) {
+        $filePath = $request->file('piece_jointe')->store('pieces_jointes', 'public');
+        }
 
         Ticket::create([
             'utilisateur_id' => Auth::user()->id,
             'sujet' => $request->input('sujet'),
             'description' => $request->description,
             'category_id' => $request->category_id,
+            'piece_jointe' => $filePath,
+
         ]);
 
         return redirect()->route('tickets.index')->with('success', 'Ticket créé avec succès.');

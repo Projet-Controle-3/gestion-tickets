@@ -12,7 +12,7 @@
             </div>
 
             <!-- Formulaire -->
-            <form action="{{ route('tickets.store') }}" method="POST" class="p-6">
+            <form action="{{ route('tickets.store') }}" method="POST" class="p-6" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Informations utilisateur -->
@@ -155,6 +155,10 @@
             <div>
                 <label for="description">Description</label>
                 <textarea name="description" id="description" required></textarea>
+            </div>
+            <div>
+                <label for="piece_jointe">Pièce jointe (max 5MB)</label>
+                <input type="file" class="form-control" id="piece_jointe" name="piece_jointe">
             </div>
             <div>
                 <label for="category_id">Catégorie</label>
