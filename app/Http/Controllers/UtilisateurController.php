@@ -31,20 +31,21 @@ class UtilisateurController extends Controller
             // 'role' => $request->role,
         ]);
 
-        return redirect()->route('register')->with('succes', 'Inscription réussie');
+        return redirect()->route('register')->with('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
     }
-// afficher les utilisateurs dans le tableau
-    function index(){
+    // afficher les utilisateurs dans le tableau
+    function index()
+    {
         $users = Utilisateur::all(); // Utilisez le même nom de variable
         return view('users.index', compact('users'));
     }
 
-//supprimer
+    //supprimer
     public function delete($id)
     {
         $users = Utilisateur::findOrFail($id);
         $users->delete();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Utilisateur supprimé avec succès');
     }
 
     public function edit($id)
@@ -54,25 +55,25 @@ class UtilisateurController extends Controller
     }
     public function update(Request $request, $id)
     {
-    // Valider les données du formulaire
+        // Valider les données du formulaire
         $request->validate([
             'nom' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'role' => 'required|in:admin,support,utilisateur', // Valider le rôle
         ]);
 
-    // Trouver l'utilisateur par son ID
-    $users = Utilisateur::find($id);
+        // Trouver l'utilisateur par son ID
+        $users = Utilisateur::find($id);
 
-    // Mettre à jour les champs
-    $users->update([
-        'nom' => $request->nom,
-        'email' => $request->email,
-        'role' => $request->role
-    ]);
+        // Mettre à jour les champs
+        $users->update([
+            'nom' => $request->nom,
+            'email' => $request->email,
+            'role' => $request->role
+        ]);
 
-    return redirect()->route('users.index');
-}
+        return redirect()->route('users.edit', $id)->with('success', 'Utilisateur mis à jour avec succès');
+    }
 
 
 
