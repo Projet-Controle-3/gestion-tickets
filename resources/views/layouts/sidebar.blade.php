@@ -22,9 +22,10 @@
                 </a>
             </li>
 
-            <!-- Liste des Tickets -->
+
             @auth
-                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'support' || auth()->user()->role === 'utilisateur')
+                @if(auth()->user()->role === 'support')
+                    <!-- Liste des Tickets -->
                     <li>
                         <a href="{{ route('tickets.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -40,10 +41,8 @@
                         </a>
                     </li>
                 @endif
-            @endauth
 
-            <!-- Création d'un Ticket -->
-            @auth
+                <!-- Création d'un Ticket (Pour l'Utilisateur seulement ) -->
                 @if(auth()->user()->role === 'utilisateur')
                     <li>
                         <a href="{{ route('tickets.create') }}"
@@ -59,10 +58,8 @@
                         </a>
                     </li>
                 @endif
-            @endauth
 
-            <!-- Réponse aux Tickets (Support seulement) -->
-            @auth
+                <!-- Réponse aux Tickets (Support seulement) -->
                 @if(auth()->user()->role === 'support')
                     <li>
                         <a href="{{ route('tickets.response') }}"
@@ -76,27 +73,24 @@
                         </a>
                     </li>
                 @endif
-            @endauth
 
-            <!-- Mes Tickets (Utilisateur) -->
-            @auth
-                @if(auth()->user()->role === 'utilisateur')
-                    <li>
-                        <a href="{{ route('tickets.my-tickets') }}"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
-                            </svg>
-                            <span class="text-lg ms-3">Mes Tickets</span>
-                        </a>
-                    </li>
-                @endif
-            @endauth
+                <!-- Mes Tickets (Utilisateur seulement) -->
+                {{-- @if(auth()->user()->role === 'utilisateur')
+                <li>
+                    <a href="{{ route('tickets.my-tickets') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="text-lg ms-3">Mes Tickets</span>
+                    </a>
+                </li>
+                @endif --}}
 
-            <!-- Gestion des Utilisateurs (Admin seulement) -->
-            @auth
+
+                <!-- Gestion des Utilisateurs (Admin seulement) -->
                 @if(auth()->user()->role === 'admin')
                     <li>
                         <a href="{{ route('users.index') }}"

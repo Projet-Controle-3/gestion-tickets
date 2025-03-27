@@ -70,10 +70,29 @@
             </ul>
 
             <div class="text-center">
-                <a href="{{ route('login') }}"
-                    class="inline-block px-5 py-2 text-sm text-black transition duration-300 bg-white rounded-md hover:bg-gray-300 hover:shadow-sm">
-                    Commencer
-                </a>
+                @auth
+                    @if (Auth::user()->role === 'utilisateur')
+                        <a href="{{ route('tickets.create') }}"
+                            class="inline-block px-5 py-2 text-sm text-black transition duration-300 bg-white rounded-md hover:bg-gray-300 hover:shadow-sm">
+                            Commencer
+                        </a>
+                    @elseif (Auth::user()->role === 'admin')
+                        <a href="{{ route('users.index') }}"
+                            class="inline-block px-5 py-2 text-sm text-black transition duration-300 bg-white rounded-md hover:bg-gray-300 hover:shadow-sm">
+                            Commencer
+                        </a>
+                    @elseif (Auth::user()->role === 'support')
+                        <a href="{{ route('tickets.index') }}"
+                            class="inline-block px-5 py-2 text-sm text-black transition duration-300 bg-white rounded-md hover:bg-gray-300 hover:shadow-sm">
+                            Commencer
+                        </a>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}"
+                        class="inline-block px-5 py-2 text-sm text-black transition duration-300 bg-white rounded-md hover:bg-gray-300 hover:shadow-sm">
+                        Commencer
+                    </a>
+                @endauth
             </div>
         </div>
     </div>

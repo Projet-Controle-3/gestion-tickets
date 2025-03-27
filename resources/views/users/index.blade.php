@@ -159,7 +159,7 @@
                                 </div>
 
                                 <!-- Formulaire Supprimer -->
-                                <form action="{{ route('users.delete', $user->id)}}" method="POST"
+                                <form action="{{ route('users.destroy', $user->id)}}" method="POST"
                                     class="absolute z-10 w-32 bg-gray-800 border border-gray-700 rounded-md shadow-lg right-s mt-s">
                                     @csrf
                                     @method('DELETE')
@@ -206,11 +206,11 @@
                     <button type="submit"><a href="{{ route('users.edit', $user->id) }}">Modifier</a>
 
                         <!-- <select name="role" onchange="this.form.submit()">
-                                                <option value="utilisateur" {{ $user->role === 'utilisateur' ? 'selected' : '' }}>Utilisateur</option>
-                                                <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
-                                                <option value="support" {{ $user->role === 'support' ? 'selected' : '' }}>Support</option>
-                                            </select>
-                                        -->
+                                                        <option value="utilisateur" {{ $user->role === 'utilisateur' ? 'selected' : '' }}>Utilisateur</option>
+                                                        <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
+                                                        <option value="support" {{ $user->role === 'support' ? 'selected' : '' }}>Support</option>
+                                                    </select>
+                                                -->
                     </button>
                     <button type="submit"><a href="http://127.0.0.1:8000/delete/{{$user->id}}">supprimer</a></button>
                 </td>
