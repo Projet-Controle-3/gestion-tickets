@@ -24,7 +24,21 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
-            return redirect()->route('tickets.index');
+
+            //Recuperer l'utilisateur connecter
+            $user = Auth::user();
+
+            //Redericter les utilisateurs en fonction de son role
+            switch ($user->role) {
+                case 'admin':
+                    return redirect()->route('users.index');
+                case 'support':
+                    return redirect()->route('tickets.index');
+                case 'utilisateur':
+                    return redirect()->route('tickets.create');
+                default:
+                    return redirect('/');
+            }
         }
 
         return back()->withErrors([
