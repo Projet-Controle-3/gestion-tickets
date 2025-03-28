@@ -24,4 +24,11 @@ class Utilisateur extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Un utilisateur peut avoir plusieurs tickets
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
 }
