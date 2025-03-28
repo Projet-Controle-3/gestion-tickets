@@ -41,7 +41,7 @@ class UtilisateurController extends Controller
     }
 
     //supprimer
-    public function delete($id)
+    public function destroy($id)
     {
         $users = Utilisateur::findOrFail($id);
         $users->delete();

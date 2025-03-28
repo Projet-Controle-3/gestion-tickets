@@ -1,135 +1,163 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="h-full">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ticket System</title>
-    <!-- Tailwind CSS via CDN (ou utilisez Vite pour une intégration locale) -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    <!-- Tailwind CSS -->
+    @vite(['resources/css/app.css'])
     <style>
         .no-scroll {
             overflow: hidden;
             height: 100vh;
         }
     </style>
+
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900 font-mono @if(request()->routeIs(['login'])) no-scroll @endif">
+<body class="bg-gray-50 font-mono dark:bg-gray-900 min-h-full @if(request()->routeIs(['login'])) no-scroll @endif">
 
-    <!-- Barre de navigation -->
-    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-
-        <div class="px-3 py-3 lg:px-5 lg:pl-3">
-
+    {{-- barre de navigation --}}
+    <nav
+        class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div class="px-4 py-3 lg:px-6">
             <div class="flex items-center justify-between">
 
-                <div class="flex items-center justify-start rtl:justify-end">
-                    <a href="/" class="flex ms-2 md:me-24">
-                        <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                            Ticket System
+                {{-- Logo et titre --}}
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+
+                        <svg class="w-8 h-8 mr-2 text-blue-600 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M1.5 6.375c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v3.026a.75.75 0 0 1-.375.65 2.249 2.249 0 0 0 0 3.898.75.75 0 0 1 .375.65v3.026c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 17.625v-3.026a.75.75 0 0 1 .374-.65 2.249 2.249 0 0 0 0-3.898.75.75 0 0 1-.374-.65V6.375Zm15-1.125a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0V6a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0v.75a.75.75 0 0 0 1.5 0v-.75Zm-.75 3a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0v-.75a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-.75ZM6 12a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z"
+                                clip-rule="evenodd" />
+                        </svg>
+
+
+                        <span class="self-center text-2xl font-bold text-gray-800 whitespace-nowrap dark:text-white">
+
+                            <span class="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
+                                Ticket
+                            </span>
+                            System
+
                         </span>
+
                     </a>
                 </div>
 
-                <div class="flex items-center">
-                    <!-- Lien de connexion (visible uniquement si l'utilisateur n'est pas connecté) -->
-                    @guest
-                        <a href="{{ route('login') }}"
-                            class="mr-4 text-base text-gray-700 dark:text-gray-500 hover:text-blue-600 dark:hover:text-gray-200">
-                            Connexion
-                        </a>
-                    @endguest
 
-                    <!-- Menu utilisateur (visible uniquement si l'utilisateur est connecté) -->
+                <div class="flex items-center space-x-4">
+
+                    {{-- Bouton de connexion --}}
                     @auth
-                        <div class="flex items-center ms-3">
-                            <div>
-                                <button type="button"
-                                    class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                                    aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                        <div class="relative group">
+                            <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:outline-none"
+                                id="user-menu-button">
 
-                                    <span class="sr-only">Open user menu</span>
+                                {{-- Image de profil en fonction de role --}}
+                                <div class="relative">
+                                    <img class="w-8 h-8 rounded-full"
+                                        src="{{ asset('images/' . (auth()->user()->role === 'admin' ? 'admin.png' : (auth()->user()->role === 'support' ? 'support.png' : 'User.png'))) }}"
+                                        alt="{{ auth()->user()->role }}" />
 
-                                    <!-- Image de profil en fonction du rôle -->
-                                    @if(auth()->user()->role === 'admin')
-                                        <img class="w-10 h-10 rounded-full" src="{{ asset('images/admin.png') }}" alt="Admin">
+                                    {{-- statut --}}
+                                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
 
-                                    @elseif(auth()->user()->role === 'support')
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/support.png') }}" alt="Support">
+                                                                                                @if(auth()->user()->role === 'admin') bg-red-500
 
-                                    @else
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/User.png') }}"
-                                            alt="Utilisateur">
-                                    @endif
-                                </button>
-                            </div>
-                            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600"
-                                id="dropdown-user">
+                                                                                                @elseif(auth()->user()->role === 'support') bg-yellow-500
 
-                                <div class="px-4 py-3" role="none">
-                                    <p class="text-sm text-gray-900 dark:text-white" role="none">
+                                                                                                @else bg-green-500 @endif">
+
+                                    </span>
+                                </div>
+                            </button>
+
+                            {{-- Menu deroulante --}}
+                            <div
+                                class="absolute right-0 z-10 hidden w-48 py-1 mt-2 bg-white rounded-md shadow-lg dark:bg-gray-800 ring-1 ring-black ring-opacity-5 group-hover:block group-focus-within:block">
+
+                                {{-- Nom et email --}}
+                                <div class="px-4 py-3">
+
+                                    <p class="text-sm text-gray-900 dark:text-white">
                                         {{ auth()->user()->nom }}
                                     </p>
-                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                    <p class="text-sm font-medium text-gray-500 truncate dark:text-gray-300">
                                         {{ auth()->user()->email }}
                                     </p>
-                                    <p class="flex items-center gap-1 text-sm truncate font-extralight text-lime-300 dark:text-gray-500"
-                                        role="none">
 
-                                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="currentColor" class="size-6">
-                                            <path fill-rule="evenodd"
-                                                d="M11.097 1.515a.75.75 0 0 1 .589.882L10.666 7.5h4.47l1.079-5.397a.75.75 0 1 1 1.47.294L16.665 7.5h3.585a.75.75 0 0 1 0 1.5h-3.885l-1.2 6h3.585a.75.75 0 0 1 0 1.5h-3.885l-1.08 5.397a.75.75 0 1 1-1.47-.294l1.02-5.103h-4.47l-1.08 5.397a.75.75 0 1 1-1.47-.294l1.02-5.103H3.75a.75.75 0 0 1 0-1.5h3.885l1.2-6H5.25a.75.75 0 0 1 0-1.5h3.885l1.08-5.397a.75.75 0 0 1 .882-.588ZM10.365 9l-1.2 6h4.47l1.2-6h-4.47Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
+                                    {{-- Role --}}
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 mt-1 text-xs font-medium rounded-full 
 
+                                                                                                                            @if(auth()->user()->role === 'admin') text-red-800 bg-red-100 dark:text-red-100 dark:bg-red-800
 
-                                        {{ auth()->user()->role }}
-                                    </p>
+                                                                                                                            @elseif(auth()->user()->role === 'support') text-yellow-800 bg-yellow-100 dark:text-yellow-100 dark:bg-yellow-800
+
+                                                                                                                            @else text-green-800 bg-green-100 dark:text-green-100 dark:bg-green-800 @endif">
+                                        {{-- role avec la premiere lettre majiscule --}}
+                                        {{ ucfirst(auth()->user()->role) }}
+
+                                    </span>
+
                                 </div>
 
-                                <ul class="py-1" role="none">
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            role="menuitem">Profil</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            role="menuitem">Paramètres</a>
-                                    </li>
-                                    <li>
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <button type="submit"
-                                                class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem">Déconnexion</button>
-                                        </form>
-                                    </li>
-                                </ul>
+                                {{-- Liens du menu --}}
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                                    Profil
+                                </a>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                                    Paramètres
+                                </a>
+
+                                {{-- Form de deconnexion --}}
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit"
+                                        class="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                                        Déconnexion
+                                    </button>
+                                </form>
+
                             </div>
                         </div>
+                    @else
+
+                        {{-- Lien de connexion --}}
+                        <a href="{{ route('login') }}"
+                            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            Connexion
+                        </a>
+
                     @endauth
+
                 </div>
+
             </div>
+
         </div>
+
     </nav>
 
-    <!-- Sidebar -->
+    {{-- Sidebar --}}
     @include('layouts.sidebar')
 
-    <!-- Main Content -->
-    <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+    {{-- Main content --}}
+    <main class="min-h-screen p-4 pt-16 sm:ml-64">
+        <div class="p-4 rounded-lg">
             @yield('content')
         </div>
-    </div>
+    </main>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 </body>
 
 </html>
