@@ -18,7 +18,7 @@ class Ticket extends Model
 
     public function category()
     {
-        return $this->belongsTo(Categorie::class, 'category_id');
+        return $this->belongsTo(Categorie::class);
     }
    // Un ticket appartient à un seul utilisateur
     public function utilisateur()
@@ -26,5 +26,13 @@ class Ticket extends Model
     return $this->belongsTo(utilisateur::class);
    }
 
+    public function utilisateur()
+    {
+        return $this->belongsTo(Utilisateur::class);
+    }
 
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
 }
