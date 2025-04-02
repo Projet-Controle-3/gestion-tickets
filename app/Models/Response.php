@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Response extends Model
+{
+    protected $fillable = [
+        'utilisateur_id',
+        'ticket_id',
+        'message'
+    ];
+
+    // utilisateur (support) peut envoyer plusieurs réponse
+    public function utilisateur()
+    {
+        return $this->belongsTo(Utilisateur::class);
+    }
+
+    // ticket peut avoir plusieurs réponse
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
+}

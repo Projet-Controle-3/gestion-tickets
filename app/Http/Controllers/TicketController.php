@@ -32,11 +32,14 @@ class TicketController extends Controller
             'category_id' => 'required|exists:categories,id',
             'piece_jointe' => 'nullable|file|max:5120',
         ]);
+
         
         $filePath = null;
-         // Verification de fichier d'input piece jointes
+
+        // Verification de fichier d'input piece jointes
+
         if ($request->hasFile('piece_jointe')) {
-        $filePath = $request->file('piece_jointe')->store('pieces_jointes', 'public');
+            $filePath = $request->file('piece_jointe')->store('pieces_jointes', 'public');
         }
 
         Ticket::create([
@@ -48,7 +51,7 @@ class TicketController extends Controller
 
         ]);
 
-        return redirect()->route('tickets.index')->with('success', 'Ticket créé avec succès.');
+        return redirect()->route('tickets.my-tickets')->with('success', 'Ticket créé avec succès.');
     }
 
     public function show(string $id)
