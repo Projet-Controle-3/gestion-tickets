@@ -26,8 +26,8 @@ class Utilisateur extends Authenticatable
     ];
 
 
+    // Un utilisateur peut avoir plusieurs tickets
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
     }
-}
