@@ -31,3 +31,4 @@ class Utilisateur extends Authenticatable
     {
         return $this->hasMany(Ticket::class);
     }
+}
