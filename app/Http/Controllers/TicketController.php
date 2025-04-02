@@ -32,7 +32,12 @@ class TicketController extends Controller
             'category_id' => 'required|exists:categories,id',
             'piece_jointe' => 'nullable|file|max:5120',
         ]);
+
+        
+        $filePath = null;
+
         // Verification de fichier d'input piece jointes
+
         if ($request->hasFile('piece_jointe')) {
             $filePath = $request->file('piece_jointe')->store('pieces_jointes', 'public');
         }
