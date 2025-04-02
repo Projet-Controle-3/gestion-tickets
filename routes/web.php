@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Middleware\LocalizationMiddleware;
@@ -39,7 +40,7 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
         // Routes spécifiques au support
         Route::middleware('support')->group(function () {
             Route::resource('tickets', TicketController::class)->except(['create', 'store']);
-            Route::get('/tickets/response', [TicketController::class, 'response'])->name('tickets.response');
+            Route::resource('response', ResponseController::class);
         });
     });
 });
