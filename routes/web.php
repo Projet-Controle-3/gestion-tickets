@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UtilisateurController;
@@ -28,21 +29,36 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
     Route::middleware('auth')->group(function () {
 
         // Routes pour les utilisateurs
-        Route::middleware('utilisateur')->group(function () {
+        Route::middleware('utilisateur')->prefix('user')->group(function () {
+
+            Route::get('/my-tickets', [TicketController::class, 'myTickets'])->name('tickets.my-tickets');
+            Route::resource('comments', CommentController::class);
             Route::resource('tickets', TicketController::class)->except(['index', 'show', 'edit', 'update', 'destroy']);
+
+            // Pour annuler l'acces a le route de Post (POST            user/tickets)
+            Route::get('tickets', function () {
+                return redirect('/')->with('error', 'Accès direct non autorisé');
+            });
+
         });
 
         // Routes pour les admins
-        Route::middleware('admin')->group(function () {
+        Route::middleware('admin')->prefix('admin')->group(function () {
+            
             Route::resource('users', UtilisateurController::class);
+        
         });
 
         // Routes spécifiques au support
-        Route::middleware('support')->group(function () {
-            Route::resource('tickets', TicketController::class)->except(['create', 'store']);
-            Route::resource('response', ResponseController::class);
+        Route::middleware('support')->prefix('support')->group(function () {
+                
+                Route::resource('response', ResponseController::class);
+                Route::resource('tickets', TicketController::class)->except(['create', 'store']);          
+        
         });
+        
     });
+
 });
 
 // Changement de langue

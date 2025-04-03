@@ -45,6 +45,7 @@
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
 
                     <thead class="bg-gray-50 dark:bg-gray-800">
+
                         <tr>
                             <th scope="col"
                                 class="px-6 py-4 text-sm font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400">
@@ -67,6 +68,7 @@
                                 Actions
                             </th>
                         </tr>
+                        
                     </thead>
 
                     {{-- Body de tableau --}}
@@ -104,11 +106,12 @@
                                         <span
                                             class="flex-shrink-0 w-2 h-2 rounded-full 
 
-                                                                                                            @if($ticket->statut == 'en_cours') bg-green-500
+                                            @if($ticket->statut == 'en_cours') bg-green-500
 
-                                                                                                            @elseif($ticket->statut == 'fermés') bg-red-500
+                                            @elseif($ticket->statut == 'fermés') bg-red-500
 
-                                                                                                            @else bg-yellow-500 @endif">
+                                            @else bg-yellow-500 @endif">
+
                                         </span>
 
                                         <span class="ml-2 text-sm font-medium text-gray-900 dark:text-white">

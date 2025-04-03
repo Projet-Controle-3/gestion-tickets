@@ -77,8 +77,7 @@
 
                         <textarea id="description" name="description" rows="6"
                             class="w-full px-4 py-3 placeholder-gray-400 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                            placeholder="Décrivez votre problème en détail...">
-                            </textarea>
+                            placeholder="Décrivez votre problème en détail..."></textarea>
 
                         @error('description')
                             <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
