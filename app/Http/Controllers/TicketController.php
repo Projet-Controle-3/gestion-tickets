@@ -26,6 +26,7 @@ class TicketController extends Controller
 
     public function store(Request $request)
     {
+        
         $request->validate([
             'sujet' => 'required|string|max:255',
             'description' => 'required|string',
@@ -92,5 +93,19 @@ class TicketController extends Controller
         $ticket->delete();
 
         return redirect()->route('tickets.index')->with('success', 'Ticket supprimé avec succès.');
+    }
+
+    public function myTickets()
+    {
+
+        $user = Auth::user();
+
+        $tickets = Ticket::where('utilisateur_id', $user->id)
+            ->with(['category', 'responses', 'responses.utilisateur'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('tickets.my-tickets', compact('tickets'));
+
     }
 }

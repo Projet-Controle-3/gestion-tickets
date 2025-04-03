@@ -23,4 +23,9 @@ class Response extends Model
     {
         return $this->belongsTo(Ticket::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
