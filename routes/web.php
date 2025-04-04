@@ -33,7 +33,7 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
 
             Route::get('/my-tickets', [TicketController::class, 'myTickets'])->name('tickets.my-tickets');
             Route::resource('comments', CommentController::class);
-            Route::resource('tickets', TicketController::class)->except(['index', 'show', 'edit', 'update', 'destroy']);
+            Route::resource('tickets', TicketController::class)->except(['index' , 'edit', 'update', 'destroy']);
 
             // Pour annuler l'acces a le route de Post (POST            user/tickets)
             Route::get('tickets', function () {
@@ -44,19 +44,19 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
 
         // Routes pour les admins
         Route::middleware('admin')->prefix('admin')->group(function () {
-            
+
             Route::resource('users', UtilisateurController::class);
-        
+
         });
 
         // Routes spécifiques au support
         Route::middleware('support')->prefix('support')->group(function () {
-                
+
                 Route::resource('response', ResponseController::class);
-                Route::resource('tickets', TicketController::class)->except(['create', 'store']);          
-        
+                Route::resource('tickets', TicketController::class)->except(['create', 'store']);
+
         });
-        
+
     });
 
 });

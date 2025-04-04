@@ -26,7 +26,7 @@ class TicketController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'sujet' => 'required|string|max:255',
             'description' => 'required|string',
@@ -34,7 +34,7 @@ class TicketController extends Controller
             'piece_jointe' => 'nullable|file|max:5120',
         ]);
 
-        
+
         $filePath = null;
 
         // Verification de fichier d'input piece jointes
@@ -57,7 +57,8 @@ class TicketController extends Controller
 
     public function show(string $id)
     {
-        //
+        $ticket = Ticket::find($id);
+        return view('tickets.show', compact('ticket'));
     }
 
     public function edit(string $id)
