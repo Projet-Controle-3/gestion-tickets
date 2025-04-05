@@ -10,6 +10,7 @@
 </head>
 
 <body class="min-h-screen font-mono text-gray-100 bg-gradient-to-br from-gray-900 to-gray-800">
+    {{-- {{dd(Auth::user()->role)}} --}}
     <div class="container px-4 mx-auto">
         <!-- En-tête -->
         <header class="py-6">
@@ -130,17 +131,17 @@
                             class="flex flex-col justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
                             @auth
                                 @if (Auth::user()->role === 'utilisateur')
-                                    <a href="{{ route('tickets.create') }}"
+                                    <a href="{{ route(Auth::user()->role.'.tickets.create') }}"
                                         class="px-6 py-3 font-medium text-gray-900 transition-all duration-200 rounded-lg shadow-md bg-gradient-to-r from-gray-100 to-white hover:from-gray-200 hover:to-gray-100 hover:shadow-lg">
                                         Créer un ticket
                                     </a>
                                 @elseif (Auth::user()->role === 'admin')
-                                    <a href="{{ route('users.index') }}"
+                                    <a href="{{ route(Auth::user()->role.'.users.index') }}"
                                         class="px-6 py-3 font-medium text-white transition-all duration-200 rounded-lg shadow-md bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg">
                                         Voir les utilisateurs
                                     </a>
                                 @elseif (Auth::user()->role === 'support')
-                                    <a href="{{ route('tickets.index') }}"
+                                    <a href="{{ route(Auth::user()->role.'.tickets.index') }}"
                                         class="px-6 py-3 font-medium text-white transition-all duration-200 rounded-lg shadow-md bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg">
                                         Voir les tickets
                                     </a>

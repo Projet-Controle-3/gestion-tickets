@@ -26,6 +26,11 @@ class Utilisateur extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getProfilAttribute()
+    {
+        return 'images/' . ($this->role === 'admin' ? 'admin.png' : ($this->role === 'support' ? 'support.png' : 'User.png'));
+    }
+
 
     // Un utilisateur peut avoir plusieurs tickets
     public function tickets()

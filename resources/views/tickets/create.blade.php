@@ -17,9 +17,9 @@
 
             {{-- Carte du formulaire --}}
             <div class="overflow-hidden bg-white shadow-md rounded-xl dark:bg-gray-800">
-
+                
                 {{-- Formulaire --}}
-                <form action="{{ route('tickets.store') }}" method="POST" class="p-6" enctype="multipart/form-data">
+                <form action="{{ route(Auth::user()->role.'.tickets.store') }}" method="POST" class="p-6" enctype="multipart/form-data">
                     @csrf
 
                     {{-- Section Utilisateur --}}

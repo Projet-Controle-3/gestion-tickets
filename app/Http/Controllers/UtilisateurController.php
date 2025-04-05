@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -45,7 +46,7 @@ class UtilisateurController extends Controller
     {
         $users = Utilisateur::findOrFail($id);
         $users->delete();
-        return redirect()->route('users.index')->with('success', 'Utilisateur supprimé avec succès');
+        return redirect()->route(Auth::user()->role.'.users.index')->with('success', 'Utilisateur supprimé avec succès');
     }
 
     public function edit($id)
@@ -72,7 +73,7 @@ class UtilisateurController extends Controller
             'role' => $request->role
         ]);
 
-        return redirect()->route('users.edit', $id)->with('success', 'Utilisateur mis à jour avec succès');
+        return redirect()->route(Auth::user()->role.'.users.edit', $id)->with('success', 'Utilisateur mis à jour avec succès');
     }
 
    

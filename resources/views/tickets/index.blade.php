@@ -68,7 +68,7 @@
                                 Actions
                             </th>
                         </tr>
-                        
+
                     </thead>
 
                     {{-- Body de tableau --}}
@@ -101,25 +101,74 @@
                                 {{-- Statut --}}
                                 <td class="px-6 py-5">
 
-                                    <div class="flex items-center">
+                                    <form action="{{ route('tickets.updateStatut', $ticket->id) }}" method="POST" class="relative">
+                                        @csrf
+                                        @method('PATCH')
 
-                                        <span
-                                            class="flex-shrink-0 w-2 h-2 rounded-full 
+                                        <div class="relative">
 
-                                            @if($ticket->statut == 'en_cours') bg-green-500
+                                            <select name="statut"
+                                                    onchange="this.form.submit()"
+                                                    class="appearance-none pl-3 pr-8 py-2 text-sm rounded-lg border-0 shadow-sm focus:ring-opacity-50 focus:outline-none transition-all duration-200
 
-                                            @elseif($ticket->statut == 'fermés') bg-red-500
+                                                        @if($ticket->statut == 'en_cours') bg-green-100/70 text-green-700 focus:ring-green-500
 
-                                            @else bg-yellow-500 @endif">
+                                                        @elseif($ticket->statut == 'fermés') bg-red-100/70 text-red-700 focus:ring-red-500
 
-                                        </span>
+                                                        @else bg-yellow-100/70 text-yellow-700 focus:ring-yellow-500 @endif">
 
-                                        <span class="ml-2 text-sm font-medium text-gray-900 dark:text-white">
-                                            {{ $ticket->statut }}
-                                        </span>
+                                                <option value="en_attente" {{ $ticket->statut == 'en_attente' ? 'selected' : '' }}>En attente</option>
 
-                                    </div>
+                                                <option value="en_cours" {{ $ticket->statut == 'en_cours' ? 'selected' : '' }}>En cours</option>
+
+                                                <option value="fermés" {{ $ticket->statut == 'fermés' ? 'selected' : '' }}>Fermé</option>
+
+                                            </select>
+
+                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-50">
+
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                                </svg>
+
+                                            </div>
+
+                                        </div>
+
+                                        {{-- Indicateur de statut --}}
+                                        <div class="absolute -top-2 -right-2">
+
+                                            <span class="flex h-3 w-3">
+
+                                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full
+
+                                                    @if($ticket->statut == 'en_cours') bg-green-400 opacity-75
+
+                                                    @elseif($ticket->statut == 'fermés') bg-red-400 opacity-75
+
+                                                    @else bg-yellow-400 opacity-75 @endif">
+
+                                                </span>
+
+                                                <span class="relative inline-flex rounded-full h-3 w-3
+
+                                                    @if($ticket->statut == 'en_cours') bg-green-500
+
+                                                    @elseif($ticket->statut == 'fermés') bg-red-500
+
+                                                    @else bg-yellow-500 @endif">
+
+                                                </span>
+
+                                            </span>
+
+                                        </div>
+
+                                    </form>
+
                                 </td>
+
+
 
                                 {{-- Categorie --}}
                                 <td class="px-6 py-5">
@@ -138,7 +187,7 @@
 
                                     <div class="flex space-x-3">
 
-                                        <a href="{{ route('tickets.edit', $ticket->id) }}"
+                                        <a href="{{ route(Auth::user()->role.'.tickets.edit', $ticket->id) }}"
                                             class="p-2 text-blue-600 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30"
                                             title="Modifier">
 
@@ -151,7 +200,7 @@
                                         </a>
 
                                         {{-- form de suppression --}}
-                                        <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST">
+                                        <form action="{{ route(Auth::user()->role.'.tickets.destroy', $ticket->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
 
@@ -169,6 +218,9 @@
                                             </button>
 
                                         </form>
+
+
+
 
                                     </div>
 
