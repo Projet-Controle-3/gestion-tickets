@@ -189,7 +189,7 @@
                         </div>
 
                         {{-- Formulaire de reponse --}}
-                        <form action="{{ route('response.store') }}" method="POST" class="mt-8">
+                        <form action="{{ route(Auth::user()->role.'.response.store') }}" method="POST" class="mt-8">
                             @csrf
 
                             <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
@@ -200,7 +200,8 @@
                                 <div class="flex-shrink-0">
 
                                     <img class="w-10 h-10 rounded-full" src="{{ asset('images/support.png') }}"
-                                    alt="Support" />
+
+                                        alt="Support" />
 
                                 </div>
 

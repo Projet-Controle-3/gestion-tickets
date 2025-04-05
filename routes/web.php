@@ -29,7 +29,7 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
     Route::middleware('auth')->group(function () {
 
         // Routes pour les utilisateurs
-        Route::middleware('utilisateur')->prefix('user')->group(function () {
+        Route::middleware('utilisateur')->prefix('user')->name('utilisateur.')->group(function () {
 
             Route::get('/my-tickets', [TicketController::class, 'myTickets'])->name('tickets.my-tickets');
             Route::resource('comments', CommentController::class);
@@ -43,14 +43,18 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
         });
 
         // Routes pour les admins
-        Route::middleware('admin')->prefix('admin')->group(function () {
-
+        Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+            Route::resource('response', ResponseController::class);
             Route::resource('users', UtilisateurController::class);
 
         });
 
         // Routes spécifiques au support
+
         Route::middleware('support')->prefix('support')->group(function () {
+                Route::patch('/tickets/{ticket}/statut', [TicketController::class, 'updateStatut'])->name('tickets.updateStatut');
+
+        Route::middleware('support')->prefix('support')->name('support.')->group(function () {
                 Route::patch('/tickets/{ticket}/statut', [TicketController::class, 'updateStatut'])->name('tickets.updateStatut');
                 Route::resource('response', ResponseController::class);
                 Route::resource('tickets', TicketController::class)->except(['create', 'store']);

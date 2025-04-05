@@ -187,7 +187,7 @@
 
                                     <div class="flex space-x-3">
 
-                                        <a href="{{ route('tickets.edit', $ticket->id) }}"
+                                        <a href="{{ route(Auth::user()->role.'.tickets.edit', $ticket->id) }}"
                                             class="p-2 text-blue-600 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30"
                                             title="Modifier">
 
@@ -200,7 +200,7 @@
                                         </a>
 
                                         {{-- form de suppression --}}
-                                        <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST">
+                                        <form action="{{ route(Auth::user()->role.'.tickets.destroy', $ticket->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
 

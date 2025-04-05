@@ -33,16 +33,16 @@ class AuthController extends Controller
 
                 case 'admin':
 
-                    return redirect()->route('users.index');
+                    return redirect()->route(Auth::user()->role.'.users.index');
 
                 case 'support':
 
-                    return redirect()->route('tickets.index');
+                    return redirect()->route(Auth::user()->role.'.tickets.index');
 
                 case 'utilisateur':
 
 
-                    return redirect()->route('tickets.create');
+                    return redirect()->route(Auth::user()->role.'.tickets.create');
 
                 default:
 

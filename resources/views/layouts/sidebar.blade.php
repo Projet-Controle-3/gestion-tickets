@@ -30,7 +30,7 @@
                     <li>
                         {{-- <a href="{{ auth()->user()->role === 'support' ? url('support/tickets') : url('user/tickets') }}"--}}
                         
-                        <a href="{{ route("tickets.index") }}"                            
+                        <a href="{{ route(Auth::user()->role.'.tickets.index') }}"                            
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -53,7 +53,7 @@
 
                     {{-- Creation d'un Ticket --}}
                     <li>
-                        <a href="{{ route('tickets.create') }}"
+                        <a href="{{ route(Auth::user()->role.'.tickets.create') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -74,7 +74,7 @@
 
                     {{-- My Tickets --}}
                     <li>
-                        <a href="{{ route('tickets.my-tickets') }}"
+                        <a href="{{ route(Auth::user()->role.'.tickets.my-tickets') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -91,11 +91,13 @@
                 @endif
 
 
-                @if(auth()->user()->role === 'support')
+                @if(auth()->user()->role === 'support' || auth()->user()->role === 'admin')
+
+                    {{-- Liste des Tickets --}}
 
                     {{-- Reponse aux Tickets --}}
                     <li>
-                        <a href="{{ route('response.index') }}"
+                        <a href="{{ route(Auth::user()->role.'.response.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -117,7 +119,7 @@
 
                     {{-- Gestion des Utilisateurs --}}
                     <li>
-                        <a href="{{ route('users.index') }}"
+                        <a href="{{ route(Auth::user()->role.'.users.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" fill="currentColor"
