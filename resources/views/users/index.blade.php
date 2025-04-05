@@ -111,7 +111,7 @@
                             <div class="relative flex-shrink-0 mr-4">
 
                                 <img class="w-10 h-10 rounded-full"
-                                    src="{{ asset('images/' . ($user->role === 'admin' ? 'admin.png' : ($user->role === 'support' ? 'support.png' : 'User.png'))) }}"
+                                    src="{{ asset($user->profil) }}"
                                     alt="{{ $user->role }}" />
 
                                 <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800 
@@ -187,7 +187,7 @@
                                         class="absolute z-10 w-48 origin-top-right bg-white rounded-md shadow-lg right mt dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
 
                                         {{-- Lien Modifier --}}
-                                        <a href="{{ route('users.edit', $user->id) }}"
+                                        <a href="{{ route(Auth::user()->role.'.users.edit', $user->id) }}"
                                             class="flex items-center px-10 py-2 text-sm text-gray-700 transition-colors dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
 
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 20 20"
@@ -201,7 +201,7 @@
                                         </a>
 
                                         {{-- Formulaires de suppression --}}
-                                        <form action="{{ route('users.destroy', $user->id)}}" method="POST"
+                                        <form action="{{ route(Auth::user()->role.'.users.destroy', $user->id)}}" method="POST"
                                             class="absolute z-10 w-48 origin-top-right bg-white rounded-md shadow-lg right-s mt-s dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
 
                                             @csrf
