@@ -40,7 +40,7 @@ class CommentController extends Controller
             'response_id' => $request->response_id,
         ]);
     
-        return redirect()->route('tickets.my-tickets')->with('success', 'Commentaire ajouté avec succès.');
+        return redirect()->route(Auth::user()->role.'.tickets.my-tickets')->with('success', 'Commentaire ajouté avec succès.');
     }
 
     /**

@@ -42,7 +42,7 @@ class ResponseController extends Controller
             'message' => $request->message
         ]);
 
-        return redirect()->route('response.index')->with('success', 'Réponse ajoutée avec succès.');
+        return redirect()->route(Auth::user()->role.'.response.index')->with('success', 'Réponse ajoutée avec succès.');
     }
 
     /**
