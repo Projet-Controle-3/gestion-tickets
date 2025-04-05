@@ -34,18 +34,39 @@
                         <!-- Profil utilisateur -->
                         <div class="flex items-center gap-3">
                             <div class="relative">
-                                <img class="w-10 h-10 border-2 rounded-full border-white/30"
+                                <!-- <img class="w-10 h-10 border-2 rounded-full border-white/30"
                                     src="{{ asset('images/' . (Auth::user()->role === 'admin' ? 'admin.png' : (Auth::user()->role === 'support' ? 'support.png' : 'user.png'))) }}"
                                     alt="{{ Auth::user()->name }}"
                                     onerror="this.src='{{ asset('images/default-avatar.png') }}'">
 
                                 <!-- Badge de rôle -->
-                                <span
+                                <!-- <span>
                                     class="absolute -bottom-1 -right-1 flex items-center justify-center w-5 h-5 rounded-full border-2 border-white/30
                                                                                                                                                                                                                                                         @if(Auth::user()->role === 'admin') bg-red-500
                                                                                                                                                                                                                                                         @elseif(Auth::user()->role === 'support') bg-yellow-500
                                                                                                                                                                                                                                                         @else bg-green-500 @endif">
-                                </span>
+                                </span> -->
+                                  <!-- Vérifie si l'utilisateur a une photo de profil -->
+                   @if(Auth::check() && Auth::user()->photo)
+                         <img src="{{ asset('uploads/photos/' . Auth::user()->photo) }}" alt="Photo de profil" class="rounded-circle" width="40" height="40">
+                    @else
+                                <!-- Si aucune photo, afficher une icône par défaut -->
+                        <div class="relative">
+                                    <img class="w-8 h-8 rounded-full"
+                                        src="{{ asset('images/' . (auth()->user()->role === 'admin' ? 'admin.png' : (auth()->user()->role === 'support' ? 'support.png' : 'User.png'))) }}"
+                                        alt="{{ auth()->user()->role }}" />
+
+                                    {{-- statut --}}
+                                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
+
+                                        @if(auth()->user()->role === 'admin') bg-red-500
+
+                                        @elseif(auth()->user()->role === 'support') bg-yellow-500
+
+                                        @else bg-green-500 @endif">
+
+                                    </span>
+                        @endif
                             </div>
 
                             <div class="hidden md:block">

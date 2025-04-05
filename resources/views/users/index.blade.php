@@ -110,19 +110,50 @@
                             {{-- Avatar avec badge de rôle --}}
                             <div class="relative flex-shrink-0 mr-4">
 
-                                <img class="w-10 h-10 rounded-full"
-                                    src="{{ asset('images/' . ($user->role === 'admin' ? 'admin.png' : ($user->role === 'support' ? 'support.png' : 'User.png'))) }}"
-                                    alt="{{ $user->role }}" />
+                                @if(Auth::user()->photo)
+                                    
+                                    <img class="w-8 h-8 rounded-full" src="{{ asset('uploads/photos/' . $user->photo) }}" alt="Photo de profil" class="rounded-circle" width="40" height="40">
+                                    
+                                    {{-- statut --}}
+                                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
 
-                                <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800 
-                                                                                        @if($user->role === 'admin') bg-red-500
+                                            @if($user->role === 'admin') bg-red-500
 
-                                                                                        @elseif($user->role === 'support') bg-yellow-500
+                                            @elseif($user->role === 'support') bg-yellow-500
 
-                                                                                        @else bg-green-500 @endif">
-                                </span>
+                                            @else bg-green-500 @endif">
+
+                                        </span>
+
+                                    @else
+                                    
+                                    <!-- Si aucune photo, afficher une icône par défaut -->
+                                    <div class="relative">
+                                        
+                                        <img class="w-8 h-8 rounded-full"
+                                            src="{{ asset('images/' . ($user->role === 'admin' ? 'admin.png' : ($user->role === 'support' ? 'support.png' : 'User.png'))) }}"
+                                            alt="{{ auth()->user()->role }}" 
+                                        />
+
+                                        
+                                        {{-- statut --}}
+                                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
+
+                                            @if($user->role === 'admin') bg-red-500
+
+                                            @elseif($user->role === 'support') bg-yellow-500
+
+                                            @else bg-green-500 @endif">
+
+                                        </span>
+
+                                    </div>
+                                                                   
+                                @endif
 
                             </div>
+
+                            
 
                             {{-- Details de l'utilisateur --}}
                             <div class="min-w-0">

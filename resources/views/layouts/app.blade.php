@@ -58,21 +58,48 @@
 
                                 {{-- Image de profil en fonction de role --}}
                                 <div class="relative">
-                                    <img class="w-8 h-8 rounded-full"
-                                        src="{{ asset('images/' . (auth()->user()->role === 'admin' ? 'admin.png' : (auth()->user()->role === 'support' ? 'support.png' : 'User.png'))) }}"
-                                        alt="{{ auth()->user()->role }}" />
 
-                                    {{-- statut --}}
-                                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
+                                    @if(Auth::check() && Auth::user()->photo)
+                                            
+                                        <img  class="w-10 h-10 rounded-full" src="{{ asset('uploads/photos/' . Auth::user()->photo) }}" alt="Photo de profil" class="rounded-circle" width="40" height="40" 
+                                        />
+                                        {{-- statut --}}
+                                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
 
-                                        @if(auth()->user()->role === 'admin') bg-red-500
+                                            @if(auth()->user()->role === 'admin') bg-red-500
 
-                                        @elseif(auth()->user()->role === 'support') bg-yellow-500
+                                            @elseif(auth()->user()->role === 'support') bg-yellow-500
 
-                                        @else bg-green-500 @endif">
+                                            @else bg-green-500 @endif">
 
-                                    </span>
+                                        </span>
+                                            
+                                        @else
+                                
+                                        <div class="relative">
+                                                
+                                            <img class="w-8 h-8 rounded-full"
+                                                    src="{{ asset('images/' . (auth()->user()->role === 'admin' ? 'admin.png' : (auth()->user()->role === 'support' ? 'support.png' : 'User.png'))) }}"
+                                                    alt="{{ auth()->user()->role }}" />
+
+                                            
+                                                    {{-- statut --}}
+                                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
+
+                                                @if(auth()->user()->role === 'admin') bg-red-500
+
+                                                @elseif(auth()->user()->role === 'support') bg-yellow-500
+
+                                                @else bg-green-500 @endif">
+
+                                            </span>
+
+                                        </div>
+
+                                    @endif
+
                                 </div>
+                                
                             </button>
 
                             {{-- Menu deroulante --}}
@@ -106,14 +133,14 @@
                                 </div>
 
                                 {{-- Liens du menu --}}
-                                <a href="#"
+                                <a href="{{ route('profile.edit') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                     Profil
                                 </a>
-                                <a href="#"
+                                <!-- <a href="#"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                     Paramètres
-                                </a>
+                                </a> -->
 
                                 {{-- Form de deconnexion --}}
                                 <form method="POST" action="{{ route('logout') }}">

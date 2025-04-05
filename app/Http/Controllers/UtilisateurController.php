@@ -36,7 +36,7 @@ class UtilisateurController extends Controller
     // afficher les utilisateurs dans le tableau
     function index()
     {
-        $users = Utilisateur::all(); // Utilisez le même nom de variable
+        $users = Utilisateur::all();
         return view('users.index', compact('users'));
     }
 
@@ -63,7 +63,7 @@ class UtilisateurController extends Controller
         ]);
 
         // Trouver l'utilisateur par son ID
-        $users = Utilisateur::find($id);
+        $users = Utilisateur::findOrFail($id);
 
         // Mettre à jour les champs
         $users->update([
@@ -75,6 +75,6 @@ class UtilisateurController extends Controller
         return redirect()->route('users.edit', $id)->with('success', 'Utilisateur mis à jour avec succès');
     }
 
-
+   
 
 }

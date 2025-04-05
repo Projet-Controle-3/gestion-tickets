@@ -27,6 +27,9 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
 
     // Routes protégées par authentification
     Route::middleware('auth')->group(function () {
+//Routes pour modifier le nom et email et ajouter une photo de profil
+        Route::get('/profile', [AuthController::class, 'editer'])->name('profile.edit');
+    Route::post('/profile', [AuthController::class, 'updater'])->name('profile.update');
 
         // Routes pour les utilisateurs
         Route::middleware('utilisateur')->prefix('user')->group(function () {
