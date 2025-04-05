@@ -59,7 +59,7 @@
                                 {{-- Image de profil en fonction de role --}}
                                 <div class="relative">
                                     <img class="w-8 h-8 rounded-full"
-                                        src="{{ asset('images/' . (auth()->user()->role === 'admin' ? 'admin.png' : (auth()->user()->role === 'support' ? 'support.png' : 'User.png'))) }}"
+                                        src="{{ asset(auth()->user()->profil) }}"
                                         alt="{{ auth()->user()->role }}" />
 
                                     {{-- statut --}}

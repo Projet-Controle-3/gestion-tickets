@@ -21,7 +21,7 @@
         {{-- Carte du formulaire --}}
         <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700">
 
-            <form action="{{ route('tickets.update', $ticket->id) }}" method="POST" class="space-y-6">
+            <form action="{{ route(Auth::user()->role.'.tickets.update', $ticket->id) }}" method="POST" class="space-y-6">
                 @csrf
                 @method('PUT')
 
@@ -146,7 +146,7 @@
                 {{-- Boutons d'actions --}}
                 <div class="flex flex-col pt-4 space-y-4 md:flex-row md:space-y-0 md:space-x-4 md:justify-end">
 
-                    <a href="{{ route('tickets.index') }}"
+                    <a href="{{ route(Auth::user()->role.'.tickets.index') }}"
                         class="flex items-center justify-center gap-2 px-6 py-3 text-lg font-medium text-gray-300 transition-all duration-300 ease-in-out border border-gray-500 rounded-lg shadow-sm bg-gray-700/50 hover:bg-gray-700 hover:text-white hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:bg-gray-600">
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

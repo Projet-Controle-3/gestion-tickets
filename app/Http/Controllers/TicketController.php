@@ -84,8 +84,9 @@ class TicketController extends Controller
             'statut' => $request->statut,
             'category_id' => $request->category_id,
         ]);
+        
 
-        return redirect()->route('tickets.index')->with('success', 'Ticket mis à jour avec succès.');
+        return redirect()->route(Auth::user()->role.'.tickets.index')->with('success', 'Ticket mis à jour avec succès.');
     }
 
     public function destroy(string $id)

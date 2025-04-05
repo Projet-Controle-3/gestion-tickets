@@ -49,7 +49,7 @@
             </div>
 
             {{-- Formulaires de modification de l'utilisateur --}}
-            <form action="{{ route('users.update', $user->id) }}" method="POST">
+            <form action="{{ route(Auth::user()->role.'.users.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -115,7 +115,7 @@
                 {{-- Button --}}
                 <div class="flex justify-between pt-4 mt-6 border-t border-gray-700/50">
 
-                    <a href="{{ route('users.index') }}"
+                    <a href="{{ route(Auth::user()->role.'.users.index') }}"
                         class="flex items-center justify-center gap-2 px-6 py-3 text-gray-300 transition rounded-lg bg-gray-700/50 hover:bg-gray-700 hover:text-white group">
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
