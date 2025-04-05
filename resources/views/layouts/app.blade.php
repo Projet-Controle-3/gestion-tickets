@@ -90,14 +90,14 @@
                                     </p>
 
                                     {{-- Role --}}
-                                    <span class="inline-flex items-center px-2.5 py-0.5 mt-1 text-xs font-medium rounded-full 
+                                    <span class="inline-flex items-center px-2.5 py-0.5 mt-1 text-xs font-medium rounded-full
 
                                         @if(auth()->user()->role === 'admin') text-red-800 bg-red-100 dark:text-red-100 dark:bg-red-800
 
                                         @elseif(auth()->user()->role === 'support') text-yellow-800 bg-yellow-100 dark:text-yellow-100 dark:bg-yellow-800
 
                                         @else text-green-800 bg-green-100 dark:text-green-100 dark:bg-green-800 @endif">
-                                        
+
                                         {{-- role avec la premiere lettre majiscule --}}
                                         {{ ucfirst(auth()->user()->role) }}
 

@@ -50,11 +50,14 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
         });
 
         // Routes spécifiques au support
-        Route::middleware('support')->prefix('support')->name('support.')->group(function () {
 
+        Route::middleware('support')->prefix('support')->group(function () {
+                Route::patch('/tickets/{ticket}/statut', [TicketController::class, 'updateStatut'])->name('tickets.updateStatut');
+
+        Route::middleware('support')->prefix('support')->name('support.')->group(function () {
+                Route::patch('/tickets/{ticket}/statut', [TicketController::class, 'updateStatut'])->name('tickets.updateStatut');
                 Route::resource('response', ResponseController::class);
                 Route::resource('tickets', TicketController::class)->except(['create', 'store']);
-
         });
 
     });
@@ -66,3 +69,6 @@ Route::get('/locale/{lang}', function ($lang) {
     session(['lang' => $lang]);
     return redirect()->back();
 })->name('locale.change');
+
+
+

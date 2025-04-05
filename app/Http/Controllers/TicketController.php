@@ -110,4 +110,19 @@ class TicketController extends Controller
         return view('tickets.my-tickets', compact('tickets'));
 
     }
+
+    public function updateStatut(Request $request, string $id)
+    {
+        $request->validate([
+            'statut' => 'required|in:en_attente,en_cours,fermés',
+        ]);
+
+        $ticket = Ticket::findOrFail($id);
+
+        $ticket->update([
+            'statut' => $request->statut,
+        ]);
+
+        return redirect()->back()->with('success', 'Statut mis à jour avec succès.');
+    }
 }
