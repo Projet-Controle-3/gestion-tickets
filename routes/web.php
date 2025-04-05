@@ -27,7 +27,7 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
 
     // Routes protégées par authentification
     Route::middleware('auth')->group(function () {
-//Routes pour modifier le nom et email et ajouter une photo de profil
+    //Routes pour modifier le nom et email et ajouter une photo de profil
         Route::get('/profile', [AuthController::class, 'editer'])->name('profile.edit');
     Route::post('/profile', [AuthController::class, 'updater'])->name('profile.update');
 
@@ -65,7 +65,7 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
 
     });
 
-});
+    });
 
 // Changement de langue
 Route::get('/locale/{lang}', function ($lang) {
@@ -73,5 +73,5 @@ Route::get('/locale/{lang}', function ($lang) {
     return redirect()->back();
 })->name('locale.change');
 
-
+});
 
