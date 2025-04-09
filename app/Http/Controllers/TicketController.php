@@ -52,7 +52,7 @@ class TicketController extends Controller
 
         ]);
 
-        return redirect()->route('tickets.my-tickets')->with('success', 'Ticket créé avec succès.');
+        return redirect()->route(Auth::user()->role.'.tickets.my-tickets')->with('success', 'Ticket créé avec succès.');
     }
 
     public function show(string $id)
@@ -94,7 +94,7 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
         $ticket->delete();
 
-        return redirect()->route('tickets.index')->with('success', 'Ticket supprimé avec succès.');
+        return redirect()->route(Auth::user()->role.'.tickets.index')->with('success', 'Ticket supprimé avec succès.');
     }
 
     public function myTickets()
