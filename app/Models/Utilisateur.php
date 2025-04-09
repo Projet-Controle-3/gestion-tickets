@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use ApiPlatform\Metadata\ApiResource;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+#[ApiResource]
 class Utilisateur extends Authenticatable
 {
     use Notifiable;
