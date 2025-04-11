@@ -27,10 +27,13 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
 
     // Routes protégées par authentification
     Route::middleware('auth')->group(function () {
-    //Routes pour modifier le nom et email et ajouter une photo de profil
-        Route::get('/profile', [AuthController::class, 'editer'])->name('profile.edit');
-    Route::post('/profile', [AuthController::class, 'updater'])->name('profile.update');
-
+        
+        Route::prefix('profile')->group(function () {
+            Route::get('/show', [UtilisateurController::class, 'showProfile'])->name('profile.show');
+            Route::put('/edit', [UtilisateurController::class, 'updateProfile'])->name('profile.update');
+            Route::delete('/photo/{id}', [UtilisateurController::class, 'deleteProfilePhoto'])->name('profile.photo.destroy');
+        });
+        
         // Routes pour les utilisateurs
         Route::middleware('utilisateur')->prefix('user')->name('utilisateur.')->group(function () {
 
@@ -38,7 +41,7 @@ Route::middleware(['web', LocalizationMiddleware::class])->group(function () {
             Route::resource('comments', CommentController::class);
             Route::resource('tickets', TicketController::class)->except(['index' , 'edit', 'update', 'destroy']);
 
-            // Pour annuler l'acces a le route de Post (POST            user/tickets)
+            // Pour annuler l'acces a le route de Post (POST : user/tickets)
             Route::get('tickets', function () {
                 return redirect('/')->with('error', 'Accès direct non autorisé');
             });
@@ -75,3 +78,6 @@ Route::get('/locale/{lang}', function ($lang) {
 
 });
 
+Route::get('/phpinfo', function () {
+    phpinfo();
+});

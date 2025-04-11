@@ -113,7 +113,7 @@
 
                                 @if(Auth::user()->photo)
                                     
-                                    <img class="w-8 h-8 rounded-full" src="{{ asset('uploads/photos/' . $user->photo) }}" alt="Photo de profil" class="rounded-circle" width="40" height="40">
+                                    <img class="w-8 h-8 rounded-full" src="{{ asset('storage/photos/' . $user->photo) }}" alt="Photo de profil" class="rounded-circle" width="40" height="40">
                                     
                                     {{-- statut --}}
                                         <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800

@@ -20,7 +20,7 @@
 </head>
 
 <body class="bg-gray-50 font-mono dark:bg-gray-900 min-h-full @if(request()->routeIs(['login'])) no-scroll @endif">
-
+    
     {{-- barre de navigation --}}
     <nav
         class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700">
@@ -58,14 +58,16 @@
 
                                 {{-- Image de profil en fonction de role --}}
                                 <div class="relative">
+                                    
+                                    {{-- Photo de profil --}}
+                                    @if(Auth::user()->photo)
 
-                                 
-
-
-                                    @if(Auth::check() && Auth::user()->photo)
-                                            
-                                        <img  class="w-10 h-10 rounded-full" src="{{ asset('uploads/photos/' . Auth::user()->photo) }}" alt="Photo de profil" class="rounded-circle" width="40" height="40" 
+                                        {{-- Photo de profil uploadée --}}
+                                        <img class="w-10 h-10 rounded-full" 
+                                             src="{{ asset(Auth::user()->image) }}" 
+                                             alt="Profil"
                                         />
+
                                         {{-- statut --}}
                                         <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
 
@@ -73,31 +75,26 @@
 
                                             @elseif(auth()->user()->role === 'support') bg-yellow-500
 
-                                            @else bg-green-500 @endif">
+                                            @else bg-green-500 @endif"
+                                        ></span>     
+                                    
+                                    @else
 
-                                        </span>
-                                            
-                                        @else
-                                
-                                        <div class="relative">
-                                                
-                                            <img class="w-8 h-8 rounded-full"
-                                            src="{{ asset(auth()->user()->profil) }}"
-                                            alt="{{ auth()->user()->role }}" />
+                                        {{-- Avatar par défaut selon le rôle --}}
+                                        <img class="w-10 h-10 rounded-full" 
+                                             src="{{ asset(Auth::user()->avatar) }}" 
+                                             alt="Avatar par défaut"
+                                        />
 
-                                            
-                                                    {{-- statut --}}
-                                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
+                                        {{-- statut --}}
+                                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
 
-                                                @if(auth()->user()->role === 'admin') bg-red-500
+                                            @if(auth()->user()->role === 'admin') bg-red-500
 
-                                                @elseif(auth()->user()->role === 'support') bg-yellow-500
+                                            @elseif(auth()->user()->role === 'support') bg-yellow-500
 
-                                                @else bg-green-500 @endif">
-
-                                            </span>
-
-                                        </div>
+                                            @else bg-green-500 @endif"
+                                        ></span>
 
                                     @endif
 
@@ -136,7 +133,7 @@
                                 </div>
 
                                 {{-- Liens du menu --}}
-                                <a href="{{ route('profile.edit') }}"
+                                <a href="{{ route('profile.show') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                     Profil
                                 </a>
@@ -176,6 +173,7 @@
 
     {{-- Sidebar --}}
     @include('layouts.sidebar')
+    
 
     {{-- Main content --}}
     <main class="min-h-screen p-4 pt-16 sm:ml-64">
