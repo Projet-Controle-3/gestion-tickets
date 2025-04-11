@@ -66,47 +66,4 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
-    
-    public function editer()
-    {
-        $user = Auth::user();
-        return view('profile.edit', compact('user'));
-    }
-    
-    public function updater(Request $request)
-    {
-    $user = Auth::user();
-
-    // Validation des données
-    $request->validate([
-        'nom' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-
-    // Gestion de la photo
-    $photoName = $user->photo; // Par défaut, conserver l'ancienne photo
-
-    if ($request->hasFile('photo')) {
-        if ($user->photo && file_exists(public_path('uploads/photos/' . $user->photo))) {
-            unlink(public_path('uploads/photos/' . $user->photo));
-        }
-
-        // Sauvegarder la nouvelle photo
-        $file = $request->file('photo');
-        $photoName = time() . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('uploads/photos'), $photoName);
-    }
-
-        $user->update([
-            'nom' => $request->nom,
-            'email' => $request->email,
-            'photo' => $photoName,
-        ]);
-
-    return redirect()->route('profile.edit')->with('success', 'Profil mis à jour avec succès.');
-}
-
-    
-
 }

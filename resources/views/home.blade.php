@@ -10,76 +10,103 @@
 </head>
 
 <body class="min-h-screen font-mono text-gray-100 bg-gradient-to-br from-gray-900 to-gray-800">
+    
     {{-- {{dd(Auth::user()->role)}} --}}
     <div class="container px-4 mx-auto">
+        
         <!-- En-tête -->
         <header class="py-6">
             <div
-                class="flex items-center justify-between p-4 border shadow-sm bg-white/10 backdrop-blur-sm rounded-xl border-white/10 ">
+                class="flex items-center justify-between p-4 border shadow-sm bg-white/8 backdrop-blur-sm rounded-xl border-white/10 ">
                 <!-- Logo -->
                 <a href="/" class="flex items-center gap-2">
+                    
                     <svg class="w-8 h-8 mr-2 text-blue-600 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M1.5 6.375c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v3.026a.75.75 0 0 1-.375.65 2.249 2.249 0 0 0 0 3.898.75.75 0 0 1 .375.65v3.026c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 17.625v-3.026a.75.75 0 0 1 .374-.65 2.249 2.249 0 0 0 0-3.898.75.75 0 0 1-.374-.65V6.375Zm15-1.125a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0V6a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0v.75a.75.75 0 0 0 1.5 0v-.75Zm-.75 3a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0v-.75a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-.75ZM6 12a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z"
                             clip-rule="evenodd" />
                     </svg>
+                    
                     <span
                         class="text-2xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text">Ticket
-                        System</span>
+                        System
+                    </span>
+                
                 </a>
 
                 <!-- Navigation -->
                 <nav class="flex items-center gap-4">
+                    
                     @auth
                         <!-- Profil utilisateur -->
                         <div class="flex items-center gap-3">
+                                                    
+                            {{-- Image de profil en fonction de role --}}
                             <div class="relative">
-                                <!-- <img class="w-10 h-10 border-2 rounded-full border-white/30"
-                                    src="{{ asset('images/' . (Auth::user()->role === 'admin' ? 'admin.png' : (Auth::user()->role === 'support' ? 'support.png' : 'user.png'))) }}"
-                                    alt="{{ Auth::user()->name }}"
-                                    onerror="this.src='{{ asset('images/default-avatar.png') }}'">
-
-                                <!-- Badge de rôle -->
-                                <!-- <span>
-                                    class="absolute -bottom-1 -right-1 flex items-center justify-center w-5 h-5 rounded-full border-2 border-white/30
-                                                                                                                                                                                                                                                        @if(Auth::user()->role === 'admin') bg-red-500
-                                                                                                                                                                                                                                                        @elseif(Auth::user()->role === 'support') bg-yellow-500
-                                                                                                                                                                                                                                                        @else bg-green-500 @endif">
-                                </span> -->
-                                  <!-- Vérifie si l'utilisateur a une photo de profil -->
-                   @if(Auth::check() && Auth::user()->photo)
-                         <img src="{{ asset('uploads/photos/' . Auth::user()->photo) }}" alt="Photo de profil" class="rounded-circle" width="40" height="40">
-                    @else
-                                <!-- Si aucune photo, afficher une icône par défaut -->
-                        <div class="relative">
-                                    <img class="w-8 h-8 rounded-full"
-                                        src="{{ asset('images/' . (auth()->user()->role === 'admin' ? 'admin.png' : (auth()->user()->role === 'support' ? 'support.png' : 'User.png'))) }}"
-                                        alt="{{ auth()->user()->role }}" />
+                               
+                                {{-- Photo de profil --}}
+                                @if(Auth::user()->photo)
+                                    
+                                    {{-- Photo de profil uploadée --}}
+                                    <img class="w-10 h-10 rounded-full" 
+                                         src="{{ asset(Auth::user()->image) }}" 
+                                         alt="Profil"
+                                    />
 
                                     {{-- statut --}}
-                                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
+                                    <span class="absolute animate-ping bottom-0 right-0 w-2.5 h-2.5 rounded-full
+
+                                        @if(auth()->user()->role === 'admin') bg-red-500 
+
+                                        @elseif(auth()->user()->role === 'support') bg-yellow-500 
+
+                                        @else bg-green-500 @endif"
+
+                                    ></span>     
+                                    
+                                @else
+                                    
+                                    
+                                    {{-- Avatar par défaut selon le rôle --}}
+                                    <img class="w-10 h-10 rounded-full" 
+                                        src="{{ asset(Auth::user()->avatar) }}" 
+                                        alt="Avatar par défaut"
+                                    />
+
+                                    {{-- statut --}}
+                                    <span class="absolute animate-ping bottom-0 right-0 w-2.5 h-2.5 rounded-full
 
                                         @if(auth()->user()->role === 'admin') bg-red-500
 
-                                        @elseif(auth()->user()->role === 'support') bg-yellow-500
+                                        @elseif(auth()->user()->role === 'support') bg-yellow-500 
 
-                                        @else bg-green-500 @endif">
+                                        @else bg-green-500 @endif"
 
-                                    </span>
-                        @endif
+                                    ></span>
+
+                                @endif
+
                             </div>
-
+                            
+                            {{-- Nom et rôle --}}
                             <div class="hidden md:block">
                                 <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
-                                <span
-                                    class="text-xs px-2 py-0.5 rounded-full 
-                                                                                                                                                                                                                                                        @if(Auth::user()->role === 'admin') bg-red-900/50 text-red-100
-                                                                                                                                                                                                                                                        @elseif(Auth::user()->role === 'support') bg-yellow-900/50 text-yellow-100
-                                                                                                                                                                                                                                                        @else bg-green-900/50 text-green-100 @endif">
+                                
+                                <span class="text-xs px-2 py-0.5 rounded-full
+
+                                    @if(Auth::user()->role === 'admin') bg-red-900/50 text-red-100
+                                    
+                                    @elseif(Auth::user()->role === 'support') bg-yellow-900/50 text-yellow-100
+                                    
+                                    @else bg-green-900/50 text-green-100 @endif">
+                                    
                                     {{ ucfirst(Auth::user()->role) }}
+
                                 </span>
+                            
                             </div>
+
                         </div>
 
                         <!-- Bouton Déconnexion -->
