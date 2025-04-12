@@ -46,6 +46,8 @@ class Utilisateur extends Authenticatable
         if (file_exists(public_path($photoPath))) {
             return asset($photoPath);
         }
+
+        return asset($this->getAvatarAttribute());
     
     }
 

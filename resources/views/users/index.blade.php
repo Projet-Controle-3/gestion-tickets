@@ -107,13 +107,13 @@
                         {{-- Info Utilisateur --}}
                         <div class="flex items-center flex-1 min-w-0">
 
-                            {{-- Avatar avec badge de rôle --}}
+                            {{-- Avatar ou image avec badge de rôle --}}
                             <div class="relative flex-shrink-0 mr-4">
 
 
-                                @if(Auth::user()->photo)
+                                @if($user->photo)
                                     
-                                    <img class="w-8 h-8 rounded-full" src="{{ asset('storage/photos/' . $user->photo) }}" alt="Photo de profil" class="rounded-circle" width="40" height="40">
+                                    <img class="w-8 h-8 rounded-full" src="{{ asset($user->image) }}" alt="Photo de profil" class="rounded-circle" width="40" height="40">
                                     
                                     {{-- statut --}}
                                         <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-gray-800
@@ -132,7 +132,7 @@
                                     <div class="relative">
                                         
                                        <img class="w-10 h-10 rounded-full"
-                                           src="{{ asset($user->profil) }}"
+                                           src="{{ asset($user->avatar) }}"
                                            alt="{{ $user->role }}" />
 
                                         
