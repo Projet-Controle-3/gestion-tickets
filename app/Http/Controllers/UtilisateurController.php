@@ -88,7 +88,7 @@ class UtilisateurController extends Controller
         $request->validate([
             'nom' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|min:1024|max:5120',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
 
